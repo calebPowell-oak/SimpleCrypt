@@ -4,10 +4,14 @@ import static java.lang.Character.toLowerCase;
 
 public class ROT13  {
 
+    Integer offset;
+
     ROT13(Character cs, Character cf) {
+        offset = cf - cs;
     }
 
     ROT13() {
+        offset = 0;
     }
 
 
@@ -17,11 +21,32 @@ public class ROT13  {
     }
 
     public String encrypt(String text) {
-        return text;
+        char[] chars = text.toCharArray();
+        StringBuilder stringBuilder = new StringBuilder();
+        for(char x : chars){
+            if(Character.isLetter(x)){
+                if(Character.isUpperCase(x)){
+                    x += offset;
+                    if(x > 'Z') x -= 26;
+                    stringBuilder.append(x);
+                } else {
+                    x += offset;
+                    if(x > 'z') x -= 26;
+                    stringBuilder.append(x);
+                }
+            } else {
+                stringBuilder.append(x);
+            }
+        }
+        return stringBuilder.toString();
     }
 
     public String decrypt(String text) {
-        return text;
+        Integer holdOffeset = offset;
+        offset = 26 - offset;
+        String answer = encrypt(text);
+        offset = holdOffeset;
+        return answer;
     }
 
     public static String rotate(String s, Character c) {
