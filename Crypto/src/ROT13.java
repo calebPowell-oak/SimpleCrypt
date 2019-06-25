@@ -25,8 +25,18 @@ public class ROT13  {
     }
 
     public static String rotate(String s, Character c) {
-
-        return "";
+        Integer offset = c - 'A';
+        char[] chars = s.toCharArray();
+        for(char x : chars){
+            if(Character.isUpperCase(x)){
+                x += offset;
+                if(x > 'Z') x -= 26;
+            } else {
+                x += offset;
+                if(x > 'z') x -= 26;
+            }
+        }
+        return new String(chars);
     }
 
 }
