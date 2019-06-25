@@ -16,8 +16,7 @@ public class ROT13  {
 
 
     public String crypt(String text) throws UnsupportedOperationException {
-
-        return "";
+        return encrypt(text);
     }
 
     public String encrypt(String text) {
