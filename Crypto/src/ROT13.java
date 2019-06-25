@@ -25,18 +25,22 @@ public class ROT13  {
     }
 
     public static String rotate(String s, Character c) {
-        Integer offset = c - 'A';
+        StringBuilder stringBuilder = new StringBuilder();
         char[] chars = s.toCharArray();
-        for(char x : chars){
-            if(Character.isUpperCase(x)){
-                x += offset;
-                if(x > 'Z') x -= 26;
-            } else {
-                x += offset;
-                if(x > 'z') x -= 26;
+        char[] result = new char[chars.length];
+        for(int i = 0; i < chars.length; i++){
+            if(chars[i] == c){
+                for(int j = i; j < chars.length; j++){
+                    result[j - i] = chars[j];
+                }
+                for(int j = chars.length - i; j < result.length; j++){
+                    result[j] = chars[j-i];
+                }
+                break;
             }
         }
-        return new String(chars);
+        stringBuilder.append(result);
+        return stringBuilder.toString();
     }
 
 }
